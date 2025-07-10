@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.drilldevops</groupId>
+  <artifactId>first-demo-jar</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>first-demo-jar</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version> <!-- Use a suitable version -->
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>com.drilldevops.App</mainClass> <!-- Specify your main class here -->
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+           <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>YOUR_VERSION</version>
+      </plugin>
+    </plugins>
+  </build>
+      <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://3.87.182.33:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://3.87.182.33:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+        <profiles>
+        <profile>
+            <id>snapshot</id>
+            <activation>
+                <property>
+                    <name>env.BUILD_TYPE</name>
+                    <value>SNAPSHOT</value>
+                </property>
+            </activation>
+        </profile>
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>env.BUILD_TYPE</name>
+                    <value>RELEASE</value>
+                </property>
+            </activation>
+        </profile>
+    </profiles> 
+
+</project>
